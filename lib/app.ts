@@ -1,22 +1,34 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
+import * as methodOverride from "method-override";
+import * as mongoose from "mongoose";
 
-class App {
+import petRouter from '../lib/routes/petRoute';
 
-    public app: express.Application;
+const app: express.Application = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride());
 
-    constructor() {
-        this.app = express();
-        this.config();
-    }
+const uri: string = "mongodb://127.0.0.1:27017/petstore";
 
-    private config(): void {
-        // support application/json type post data
-        this.app.use(bodyParser.json());
-        // support application/x-www-form-urlencoded post data
-        this.app.use(bodyParser.urlencoded({ extended: false }));
-    }
+mongoose.connect(uri, (err: any) => {
+  if (err) {
+    console.log(err.message);
+  } else {
+    console.log("Succesfully Connected!");
+  }
+});
 
-}
+app.use('/', petRouter);
 
-export default new App().app;
+app.use((error, req, res, next) => {
+    res.status(error.status || 404);
+    res.send(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.send(error);
+});
+export default app;
