@@ -1,0 +1,20 @@
+{
+    "SUCCESS": "Éxito",
+    "ERROR": "error",
+    "FAILURE": "fracaso",
+    "ERR_INTERNAL_SERVER_ERROR": "ERR_INTERNAL_SERVER_ERROR",
+    "ERR_USER_VERIFIED": "ERR_USER_VERIFIED",
+    "ERR_OTP_MANDATORY": "ERR_OTP_MANDATORY",
+    "ERR_INVALID_OTP": "ERR_INVALID_OTP",
+    "ERR_OTP_EXPIRED": "ERR_OTP_EXPIRED",
+    "MENTOR": "Mentor",
+    "SERVICE_PROVIDER": "Service provider",
+    "CONSULTANT": "Consultant",
+    "COMPANY": "Company",
+    "ENTREPRENEUR": "Entrepreneur",
+    "MENTOR_DESC": "a crisp one liner that explains the title well",
+    "SERVICE_PROVIDER_DESC": "a crisp one liner that explains the title well",
+    "CONSULTANT_DESC": "a crisp one liner that explains the title well",
+    "COMPANY_DESC": "a crisp one liner that explains the title well",
+    "ENTREPRENEUR_DESC": "a crisp one liner that explains the title well"
+  }

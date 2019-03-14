@@ -6,10 +6,12 @@
       "sourceMap": true,
       "target": "es6",
       "outDir": "./dist",
-      "baseUrl": "./lib"
+      "baseUrl": "./lib",
+      "resolveJsonModule": true,
+      "esModuleInterop": true
   },
   "include": [
-      "lib/**/*.ts", "dist/server.js", "dist/app.js", "test/baseRoute.ts"
+      "app/**/*.ts", "dist/server.js", "dist/app.js", "test/baseRoute.ts"
   ],
   "exclude": [
       "node_modules"

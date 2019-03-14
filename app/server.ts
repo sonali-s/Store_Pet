@@ -1,7 +1,7 @@
 import * as http from "http";
 import app from "./app";
 
-const PORT = 3005;
+const PORT = 3010;
 const server = http.createServer(app);
 server.listen(PORT, () => {
     console.log('Express server listening on port ' + PORT);

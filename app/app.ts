@@ -1,7 +1,9 @@
 import * as bodyParser from "body-parser";
-import * as express from "express";
-import * as methodOverride from "method-override";
-import * as mongoose from "mongoose";
+import express from "express";
+import methodOverride from "method-override";
+import mongoose from "mongoose";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger.json';
 
 import { Routes } from '../app/routes/petRoute';
 
@@ -21,6 +23,8 @@ export class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(methodOverride());
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    // this.app.use('/pets', routes);
   }
   private mongooseSetUp(): void {
     (mongoose as any).Promise = global.Promise;

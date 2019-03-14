@@ -1,18 +1,35 @@
 import { Request, Response} from 'express';
+import AppConstants from '../constants/appConstant';
+import BaseController from './../controllers/baseController';
+
 import PetService from '../services/petService';
 // import Pet from './../models/pet';
 
-export class PetController {
+export class PetController extends BaseController {
     private petService: PetService;
 
     public constructor(petService: PetService) {
+        super();
         this.petService = petService;
     }
 
     public getAllPets = async (req: Request, res: Response) => {
         try {
             const pets = await this.petService.getAllPets();
-            res.status(200).json(pets);
+            return this.appResponse.success(res, {pets});
+        } catch (error) {
+            return this.appResponse.error(
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
+        }
+    }
+    public getPetById = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.petId;
+            const pet = await this.petService.getPetById(id);
+            return this.appResponse.success(res, {pet});
         } catch (error) {
             res.status(500).send(error);
         }

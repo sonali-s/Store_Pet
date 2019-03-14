@@ -6,9 +6,9 @@ export class PetRepository {
     //     return await Pet.save();
     // }
 
-    // public getPetById = async (id: number) => {
-    //     return await Pet.findById(id);
-    // }
+    public getPetById = (id: string) => {
+        return Pet.findById(id);
+    }
     public getAllPets = () => {
         return Pet.find();
     }
