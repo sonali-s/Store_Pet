@@ -1,8 +1,6 @@
-import {PetController} from '../app/controllers/petController';
-
-import {PetService} from '../app/services/petService';
-
-import {PetRepository} from '../app/repositories/petRepository';
+import {PetController} from './controllers/PetController';
+import {PetService} from './services/PetService';
+import {PetRepository} from './repositories/PetRepository';
 
 class Wiring {
     public petController() {

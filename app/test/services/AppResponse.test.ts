@@ -2,7 +2,7 @@ import chai from 'chai';
 import chatAsPromised, { transformAsserterArgs } from 'chai-as-promised';
 import sinon from 'sinon';
 import { mockReq, mockRes } from 'sinon-express-mock';
-import {AppResponse} from './../../services/appResponse';
+import {AppResponse} from '../../services/AppResponse';
 const expect = chai.expect;
 chai.use(chatAsPromised);
 

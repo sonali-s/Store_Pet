@@ -1,9 +1,9 @@
 import { Request, Response} from 'express';
-import AppConstants from '../constants/appConstant';
-import BaseController from './../controllers/baseController';
-
-import PetService from '../services/petService';
-// import Pet from './../models/pet';
+import mongoose from 'mongoose';
+import AppConstants from '../constants/AppConstant';
+import Pet from '../models/Pet';
+import PetService from '../services/PetService';
+import BaseController from './BaseController';
 
 export class PetController extends BaseController {
     private petService: PetService;
@@ -12,7 +12,32 @@ export class PetController extends BaseController {
         super();
         this.petService = petService;
     }
-
+    public createPet = (req: Request, res: Response) => {
+        try {
+            const newPet = new Pet({
+                _id : new mongoose.Types.ObjectId,
+                category: {
+                    category_id : new mongoose.Types.ObjectId,    
+                    name: req.body.category.name
+                },
+                name: req.body.name,
+                photoUrls: req.body.photoUrls,
+                tags: {
+                    tag_id : new mongoose.Types.ObjectId,
+                    name: req.body.tags.name
+                },
+                status: req.body.status
+            });
+            this.petService.createPet(newPet);
+            return this.appResponse.success(res, {newPet});
+        } catch (error) {
+            return this.appResponse.error(
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
+        }
+    }
     public getAllPets = async (req: Request, res: Response) => {
         try {
             const pets = await this.petService.getAllPets();
@@ -31,7 +56,24 @@ export class PetController extends BaseController {
             const pet = await this.petService.getPetById(id);
             return this.appResponse.success(res, {pet});
         } catch (error) {
-            res.status(500).send(error);
+            return this.appResponse.error(
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
+        }
+    }
+    public deletePet = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.petId;
+            const deletedPet = await this.petService.deletePet(id);
+            return this.appResponse.success(res, {deletedPet});
+        } catch (error) {
+            return this.appResponse.error(
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
         }
     }
 }

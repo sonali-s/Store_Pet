@@ -1,11 +1,10 @@
-import {PetRepository} from './../../repositories/petRepository';
-import PetService from './../../services/petService';
-
+import {PetRepository} from '../../repositories/PetRepository';
+import PetService from '../../services/PetService';
 import chai from 'chai';
 import sinon from 'sinon';
 const expect = chai.expect;
-import {PetController} from './../../controllers/petController';
-import locales from './../../locales/en.json';
+import {PetController} from '../../controllers/PetController';
+import locales from '../../locales/en.json';
 
 describe('Pet Controller Test', () => {
     let req;
@@ -26,7 +25,6 @@ describe('Pet Controller Test', () => {
 
         const successResponse = {
             status: 'SUCCESS',
-            // tslint:disable-next-line:object-literal-sort-keys
             data: {
                 pets: [
                     {
@@ -83,7 +81,6 @@ describe('Pet Controller Test', () => {
 
         const failedResponse = {
             status: 'ERROR',
-            // tslint:disable-next-line:object-literal-sort-keys
             data: {error: {code: 'ERR_INTERNAL_SERVER_ERROR', message: 'Internal Server Error'}} ,
         };
 

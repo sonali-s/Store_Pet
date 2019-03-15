@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
-import {PetRepository} from '../../repositories/petRepository';
-import PetService from '../../services/petService';
+import {PetRepository} from '../../repositories/PetRepository';
+import PetService from '../../services/PetService';
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 

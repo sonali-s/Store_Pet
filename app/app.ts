@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 
-import { Routes } from '../app/routes/petRoute';
+import { Routes } from './routes/PetRoute';
 
 const uri: string = "mongodb://127.0.0.1:27017/petstore";
 

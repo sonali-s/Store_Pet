@@ -8,7 +8,8 @@
         "eofline":false,
         "interface-name":true,
         "no-console":false,
-        "quotemark":false
+        "quotemark":false,
+        "object-literal-sort-keys":false,
     },
     "rulesDirectory": []
 }

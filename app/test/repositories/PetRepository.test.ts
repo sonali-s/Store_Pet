@@ -1,6 +1,5 @@
-import Pet from './../../models/pet';
-import {PetRepository} from './../../repositories/petRepository';
-
+import Pet from '../../models/Pet';
+import {PetRepository} from '../../repositories/PetRepository';
 import chai from 'chai';
 import sinon from 'sinon';
 const expect = chai.expect;
