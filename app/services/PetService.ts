@@ -28,6 +28,13 @@ export class PetService {
             throw error;
         }
     }
+    public updatePet = (id: string, updatedPet: any) => {
+        try{
+            return this.petRepository.updatePet(id, updatedPet);
+        } catch (error) {
+            throw error;
+        }
+    }
     public deletePet = (id: string) => {
         try {
             return this.petRepository.deletePet(id);

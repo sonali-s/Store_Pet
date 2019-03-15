@@ -63,6 +63,19 @@ export class PetController extends BaseController {
             );
         }
     }
+    public updatePet = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.petId;
+            const result = await this.petService.updatePet(id, req.body);
+            return this.appResponse.success(res, {result});
+        } catch (error) {
+            return this.appResponse.error(
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
+        }
+    }
     public deletePet = async (req: Request, res: Response) => {
         try {
             const id = req.params.petId;
