@@ -131,6 +131,45 @@
                 }
             }
         },
+        "/pets/{petName}": {
+            "get": {
+                "tags":[
+                    "pets"
+                ],
+                "summary": "Find pet by Name",
+                "description": "Returns a single pet",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                    "name": "petName",
+                    "in": "path",
+                    "description": "Name of pet to return",
+                    "required": true,
+                    "type": "string"
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Pet"
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
+        },
         "/pets/{petId}":  {
             "delete": {
                 "tags":[

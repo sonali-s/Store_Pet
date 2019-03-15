@@ -7,6 +7,9 @@ export class PetRepository {
     public getAllPets = () => {
         return Pet.find();
     }
+    public getPetByName = (name: string) => {
+        return Pet.find({name: {$regex: name}});
+    }
     public createPet = (newPet: any) => {
         newPet.save();
     }

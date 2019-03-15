@@ -63,6 +63,20 @@ export class PetController extends BaseController {
             );
         }
     }
+    public getPetByName = async (req: Request, res: Response) => {
+        try {
+            let name = req.params.petName;
+            name = '^' + name;
+            const pet = await this.petService.getPetByName(name);
+            return this.appResponse.success(res, {pet});
+        } catch (error) {
+            return this.appResponse.error (
+                res,
+                AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                res.__(AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR),
+            );
+        }
+    }
     public updatePet = async (req: Request, res: Response) => {
         try {
             const id = req.params.petId;
