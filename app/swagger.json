@@ -69,7 +69,16 @@
                     {
                     "name": "pet",
                     "in": "body",
-                    "description": "Pet details to be saved",
+                    "schema": {
+                        "properties": {
+                            "pet" :{
+                                "type": "array",
+                                "items":{
+                                    "$ref":"#/definitions/Pet"
+                                }
+                            }
+                        }
+                    },
                     "required": true
                     }
                 ],

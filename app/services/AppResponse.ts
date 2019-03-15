@@ -55,23 +55,6 @@ export class AppResponse {
         });
     }
 
-    public conflict = (res: Response, code: string, message: string, description: string = '') => {
-        res.status(this.CONFLICT).send({
-            status: 'FAILURE',
-            data: {
-                error: {
-                    code,
-                    description,
-                    message,
-                },
-            },
-        });
-    }
-
-    public noContent = (res: Response) => {
-        res.status(this.NO_CONTENT).send({});
-    }
-
     public notFound = (res: Response, code: string, message: string, description: string = '') => {
         res.status(this.NOT_FOUND).send({
             status: 'FAILURE',
