@@ -278,6 +278,12 @@
                     "type": "string",
                     "example": "doggie"
                 },
+                "category": {
+                    "name": {
+                        "type": "string",
+                        "example": "Breed"
+                    }
+                },
                 "photoUrls": {
                     "type": "array",
                     "xml": {

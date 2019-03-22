@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts './app/test/**/*.ts'",
+    "test": "mocha --require ts-node/register --watch-extensions ts './app/test/controllers/PetController.test.ts'",
     "build": "tsc",
     "dev": "ts-node ./app/server.ts",
     "start": "nodemon ./dist/server.js",

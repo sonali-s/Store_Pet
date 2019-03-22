@@ -24,7 +24,6 @@ export class App {
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(methodOverride());
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-    // this.app.use('/pets', routes);
   }
   private mongooseSetUp(): void {
     (mongoose as any).Promise = global.Promise;

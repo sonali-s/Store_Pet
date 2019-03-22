@@ -2,10 +2,8 @@ import { Response } from 'express';
 
 export class AppResponse {
     protected readonly SUCCESS = 200;
-    protected readonly NO_CONTENT = 204;
     protected readonly BAD_REQUEST = 400;
     protected readonly NOT_FOUND = 404;
-    protected readonly CONFLICT = 409;
     protected readonly UNPROCESSABLE_ENTITY = 422;
     protected readonly INTERNAL_SERVER_ERROR = 500;
 

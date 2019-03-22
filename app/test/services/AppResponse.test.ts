@@ -106,45 +106,6 @@ describe('AppResponse Service Test', async () => {
         sinon.assert.calledWith(res.status, statusCode);
         sinon.assert.calledWith(res.send, envelope);
     });
-
-    it('should test conflict response format', async () => {
-        const code = 'Code';
-        const message = 'Message';
-        const description = 'Description';
-        const statusCode = 409;
-        const envelope = {
-            status: 'FAILURE',
-            // tslint:disable-next-line:object-literal-sort-keys
-            data: {
-                error: {
-                    code,
-                    description,
-                    message,
-                },
-            },
-        };
-
-        await appResponse.conflict(res, code, message, description);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledOnce(res.send);
-        sinon.assert.calledWith(res.status, statusCode);
-        sinon.assert.calledWith(res.send, envelope);
-    });
-
-    it('should test noContent response format', async () => {
-        const code = 'Code';
-        const message = 'Message';
-        const description = 'Description';
-        const statusCode = 204;
-        const envelope = {};
-
-        await appResponse.noContent(res, code, message, description);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledOnce(res.send);
-        sinon.assert.calledWith(res.status, statusCode);
-        sinon.assert.calledWith(res.send, envelope);
-    });
-
     it('should test notFound response format', async () => {
         const code = 'Code';
         const message = 'Message';

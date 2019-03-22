@@ -8,12 +8,10 @@ const expect = chai.expect;
 
 describe('Pet Service Test', () => {
     let stubPetRepository;
-    let petService;
     let pets;
 
     beforeEach( () => {
         stubPetRepository = sinon.stub(new PetRepository());
-        petService = new PetService(stubPetRepository);
 
         pets = [ {
             _id : 1234,
@@ -31,21 +29,36 @@ describe('Pet Service Test', () => {
         }];
     });
 
-    it('should return pets from repository', async () => {
-
+    describe('Pet Service to return all pets', async () => {
+        it('should return pets from repository', async () => {
         stubPetRepository.getAllPets.returns(pets);
-
         const response = await new PetService(stubPetRepository).getAllPets();
-
         sinon.assert.calledOnce(stubPetRepository.getAllPets);
         expect(response).equals(pets);
     });
 
-    it('should catch error', async () => {
-        const error = new Error();
-        stubPetRepository.getAllPets.throws(error);
-        await expect(petService.getAllPets()).to.be.rejected;
-        // sinon.assert.calledOnce(stubIndustryRepository.create);
+        it('should catch error', async () => {
+            const error = new Error();
+            await stubPetRepository.getAllPets.throws(error);
+            await expect(new PetService(stubPetRepository).getAllPets()).to.be.rejected;
+            sinon.assert.calledOnce(stubPetRepository.getAllPets);
+        });
     });
 
+    describe('Pet Service to return single pet by ID', async () => {
+        it('should return a pet by ID from repository', async () => {
+        stubPetRepository.getPetById.returns(pets);
+        const response = await new PetService(stubPetRepository).getPetById(pets[0]._id);
+        sinon.assert.calledOnce(stubPetRepository.getPetById);
+        expect(response).equals(pets);
+    });
+
+        it('should catch error', async () => {
+            const error = new Error();
+            await stubPetRepository.getAllPets.throws(error);
+            await expect(new PetService(stubPetRepository).getAllPets()).to.be.rejected;
+            sinon.assert.calledOnce(stubPetRepository.getAllPets);
+        });
+    });
+    
 });

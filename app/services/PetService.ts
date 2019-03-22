@@ -7,9 +7,9 @@ export class PetService {
         this.petRepository = petRepository;
     }
 
-    public getAllPets = () => {
+    public getAllPets = async () => {
         try {
-            return this.petRepository.getAllPets();
+            return await this.petRepository.getAllPets();
         } catch (error) {
             throw error;
         }
