@@ -102,6 +102,44 @@ describe('Pet Controller Test', () => {
             sinon.assert.calledOnce(stubError);
             expect(response).equal(failedResponse);
         });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.getAllPets.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
+            .returns(failedResponse);
+
+            const response = await petController.getAllPets(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getAllPets);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data not found', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_NOT_FOUND', message: 'data not found', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+            };
+
+            stubPetService.getAllPets.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'notFound')
+            .returns(failedResponse);
+
+            const response = await petController.getAllPets(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getAllPets);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
     });
 
     describe('Pet Controller to return a pet by ID', async() => {
@@ -174,6 +212,44 @@ describe('Pet Controller Test', () => {
             stubPetService.getPetById.throws(error);
 
             const stubError = await sinon.stub(petController.appResponse, 'error')
+            .returns(failedResponse);
+
+            const response = await petController.getPetById(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getPetById);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.getPetById.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
+            .returns(failedResponse);
+
+            const response = await petController.getPetById(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getPetById);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data not found', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_NOT_FOUND', message: 'data not found', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+            };
+
+            stubPetService.getPetById.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'notFound')
             .returns(failedResponse);
 
             const response = await petController.getPetById(req as any, res as any);
@@ -262,6 +338,44 @@ describe('Pet Controller Test', () => {
             sinon.assert.calledOnce(stubError);
             expect(response).equal(failedResponse);
         });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.getPetByName.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
+            .returns(failedResponse);
+
+            const response = await petController.getPetByName(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getPetByName);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data not found', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_NOT_FOUND', message: 'data not found', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+            };
+
+            stubPetService.getPetByName.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'notFound')
+            .returns(failedResponse);
+
+            const response = await petController.getPetByName(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.getPetByName);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
     });
     describe('Pet Controller to create a new pet', async() => {
         it('should return pets', async () => {
@@ -335,6 +449,25 @@ describe('Pet Controller Test', () => {
             stubPetService.createPet.throws(error);
 
             const stubError = await sinon.stub(petController.appResponse, 'error')
+            .returns(failedResponse);
+
+            const response = await petController.createPet(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.createPet);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.createPet.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
             .returns(failedResponse);
 
             const response = await petController.createPet(req as any, res as any);
@@ -423,6 +556,44 @@ describe('Pet Controller Test', () => {
             sinon.assert.calledOnce(stubError);
             expect(response).equal(failedResponse);
         });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.updatePet.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
+            .returns(failedResponse);
+
+            const response = await petController.updatePet(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.updatePet);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data not found', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_NOT_FOUND', message: 'data not found', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+            };
+
+            stubPetService.updatePet.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'notFound')
+            .returns(failedResponse);
+
+            const response = await petController.updatePet(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.updatePet);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
     });
     describe('Pet Controller to delete a pet by ID', async() => {
         it('should delete a single pet', async () => {
@@ -483,6 +654,44 @@ describe('Pet Controller Test', () => {
             stubPetService.deletePet.throws(error);
 
             const stubError = await sinon.stub(petController.appResponse, 'error')
+            .returns(failedResponse);
+
+            const response = await petController.deletePet(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.deletePet);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data is unprocessable', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_UNPROCESSABLE_ENTITY', message: 'Unprocessable Entity', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY,
+            };
+
+            stubPetService.deletePet.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'unprocessableEntity')
+            .returns(failedResponse);
+
+            const response = await petController.deletePet(req as any, res as any);
+            sinon.assert.calledOnce(stubPetService.deletePet);
+            sinon.assert.calledOnce(stubError);
+            expect(response).equal(failedResponse);
+        });
+        it('should throw error in case of data not found', async () => {
+            const failedResponse = {
+                status: 'ERROR',
+                data: {error: {code: 'ERR_NOT_FOUND', message: 'data not found', description: ''}},
+            };
+            const error = {
+                code: AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+            };
+
+            stubPetService.deletePet.throws(error);
+
+            const stubError = await sinon.stub(petController.appResponse, 'notFound')
             .returns(failedResponse);
 
             const response = await petController.deletePet(req as any, res as any);
