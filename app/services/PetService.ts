@@ -14,37 +14,37 @@ export class PetService {
             throw error;
         }
     }
-    public getPetById = (id: string) => {
+    public getPetById = async (id: string) => {
         try {
-            return this.petRepository.getPetById(id);
+            return await this.petRepository.getPetById(id);
         } catch (error) {
             throw error;
         }
     }
-    public getPetByName = (name: string) => {
+    public getPetByName = async (name: string) => {
         try {
-            return this.petRepository.getPetByName(name);
+            return await this.petRepository.getPetByName(name);
         } catch (error) {
             throw error;
         }
     }
-    public createPet = (newPet: any) => {
+    public createPet = async (newPet: any) => {
         try {
-            this.petRepository.createPet(newPet);
+            return await this.petRepository.createPet(newPet);
         } catch (error) {
             throw error;
         }
     }
-    public updatePet = (id: string, updatedPet: any) => {
-        try{
-            return this.petRepository.updatePet(id, updatedPet);
+    public updatePet = async (id: string, updatedPet: any) => {
+        try {
+            return await this.petRepository.updatePet(id, updatedPet);
         } catch (error) {
             throw error;
         }
     }
-    public deletePet = (id: string) => {
+    public deletePet = async (id: string) => {
         try {
-            return this.petRepository.deletePet(id);
+            return await this.petRepository.deletePet(id);
         } catch (error) {
             throw error;
         }

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts './app/test/controllers/PetController.test.ts'",
+    "test": "mocha --require ts-node/register --watch-extensions ts './app/test/controllers/**.ts'",
+    
     "build": "tsc",
     "dev": "ts-node ./app/server.ts",
     "start": "nodemon ./dist/server.js",
@@ -29,6 +30,7 @@
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.17",
     "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
     "swagger-jsdoc": "^3.2.7",
     "swagger-ui-express": "^4.0.2"
   },

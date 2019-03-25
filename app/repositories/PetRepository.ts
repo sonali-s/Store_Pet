@@ -11,7 +11,7 @@ export class PetRepository {
         return Pet.find({name: {$regex: name}});
     }
     public createPet = (newPet: any) => {
-        newPet.save();
+        return Pet.create(newPet);
     }
     public deletePet = (id: string) => {
         return Pet.findByIdAndDelete(id);

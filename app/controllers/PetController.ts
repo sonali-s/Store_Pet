@@ -12,7 +12,7 @@ export class PetController extends BaseController {
         super();
         this.petService = petService;
     }
-    public createPet = (req: Request, res: Response) => {
+    public createPet = async (req: Request, res: Response) => {
         try {
             const newPet = new Pet({
                 _id : new mongoose.Types.ObjectId,
@@ -29,7 +29,7 @@ export class PetController extends BaseController {
                 status: req.body.status
             });
             this.petService.createPet(newPet);
-            return this.appResponse.success(res, {newPet});
+            return await this.appResponse.success(res, {newPet});
         } catch (error) {
             if (error) {
                 if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
@@ -167,7 +167,7 @@ export class PetController extends BaseController {
         try {
             const id = req.params.petId;
             const deletedPet = await this.petService.deletePet(id);
-            return this.appResponse.success(res, {deletedPet});
+            return await this.appResponse.success(res, {deletedPet});
         } catch (error) {
             if (error) {
                 if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
