@@ -31,18 +31,12 @@ export class PetController extends BaseController {
             this.petService.createPet(newPet);
             return await this.appResponse.success(res, {newPet});
         } catch (error) {
-            if (error) {
-                if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                    return this.appResponse.unprocessableEntity(
-                        res,
-                        error.code,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                    return this.appResponse.error(res,
-                        AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
-                        res.__(error.message));
-                }
+            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
+                return this.appResponse.unprocessableEntity(
+                    res,
+                    error.code,
+                    res.__(error.message),
+                );
             } else {
                 throw error;
             }
@@ -65,11 +59,6 @@ export class PetController extends BaseController {
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
                 );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                return this.appResponse.error(
-                    res,
-                    error.code,
-                    res.__(error.message));
             } else {
                 throw error;
             }
@@ -81,24 +70,18 @@ export class PetController extends BaseController {
             const pet = await this.petService.getPetById(id);
             return this.appResponse.success(res, {pet});
         } catch (error) {
-            if (error) {
-                if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                    return this.appResponse.unprocessableEntity(
-                        res,
-                        error.code,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                    return this.appResponse.notFound(
-                        res,
-                        AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                    return this.appResponse.error(res,
-                        AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
-                        res.__(error.message));
-                }
+            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
+                return this.appResponse.unprocessableEntity(
+                    res,
+                    error.code,
+                    res.__(error.message),
+                );
+            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+                return this.appResponse.notFound(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+                    res.__(error.message),
+                );
             } else {
                 throw error;
             }
@@ -111,24 +94,18 @@ export class PetController extends BaseController {
             const pet = await this.petService.getPetByName(name);
             return this.appResponse.success(res, {pet});
         } catch (error) {
-            if (error) {
-                if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
+            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
                     return this.appResponse.unprocessableEntity(
                         res,
                         error.code,
                         res.__(error.message),
                     );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                    return this.appResponse.notFound(
-                        res,
-                        AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                    return this.appResponse.error(res,
-                        AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
-                        res.__(error.message));
-                }
+            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+                return this.appResponse.notFound(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+                    res.__(error.message),
+                );
             } else {
                 throw error;
             }
@@ -140,24 +117,18 @@ export class PetController extends BaseController {
             const result = await this.petService.updatePet(id, req.body);
             return this.appResponse.success(res, {result});
         } catch (error) {
-            if (error) {
-                if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                    return this.appResponse.unprocessableEntity(
-                        res,
-                        error.code,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                    return this.appResponse.notFound(
-                        res,
-                        AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                    return this.appResponse.error(res,
-                        AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
-                        res.__(error.message));
-                }
+            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
+                return this.appResponse.unprocessableEntity(
+                    res,
+                    error.code,
+                    res.__(error.message),
+                );
+            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+                return this.appResponse.notFound(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+                    res.__(error.message),
+                );
             } else {
                 throw error;
             }
@@ -169,24 +140,18 @@ export class PetController extends BaseController {
             const deletedPet = await this.petService.deletePet(id);
             return await this.appResponse.success(res, {deletedPet});
         } catch (error) {
-            if (error) {
-                if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                    return this.appResponse.unprocessableEntity(
-                        res,
-                        error.code,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                    return this.appResponse.notFound(
-                        res,
-                        AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                        res.__(error.message),
-                    );
-                } else if (error.code === AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR) {
-                    return this.appResponse.error(res,
-                        AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
-                        res.__(error.message));
-                }
+            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
+                return this.appResponse.unprocessableEntity(
+                    res,
+                    error.code,
+                    res.__(error.message),
+                );
+            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+                return this.appResponse.notFound(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+                    res.__(error.message),
+                );
             } else {
                 throw error;
             }

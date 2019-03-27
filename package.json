@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts './app/test/**/**.ts'",
-    
+    "test": "nyc mocha --require ts-node/register --watch-extensions ts './app/test/**/**.ts'",
     "build": "tsc",
     "dev": "ts-node ./app/server.ts",
     "start": "nodemon ./dist/server.js",
@@ -39,14 +38,35 @@
     "@types/mocha": "^5.2.6",
     "@types/mongodb": "^3.1.20",
     "@types/mongoose": "^5.3.20",
+    "babel-plugin-istanbul": "^5.1.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.2.1",
+    "istanbul": "^0.4.5",
     "mocha": "^6.0.2",
     "sinon": "^7.2.7",
     "sinon-express-mock": "^2.1.0",
     "ts-node": "^8.0.2",
     "tslint": "^5.13.1",
     "typescript": "^3.3.3"
+  },
+  "nyc": {
+    "include": [
+      "app/**/*.ts",
+      "app/test/**/*.ts"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }
