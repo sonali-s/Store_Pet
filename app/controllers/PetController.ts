@@ -36,6 +36,7 @@ export class PetController extends BaseController {
                     res,
                     error.code,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
@@ -52,12 +53,14 @@ export class PetController extends BaseController {
                     res,
                     error.code,
                     res.__(error.message),
+                    'Description'
                 );
             } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
@@ -75,12 +78,14 @@ export class PetController extends BaseController {
                     res,
                     error.code,
                     res.__(error.message),
+                    'Description'
                 );
             } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
@@ -99,12 +104,14 @@ export class PetController extends BaseController {
                         res,
                         error.code,
                         res.__(error.message),
+                        'Description'
                     );
             } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
@@ -122,12 +129,14 @@ export class PetController extends BaseController {
                     res,
                     error.code,
                     res.__(error.message),
+                    'Description'
                 );
             } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
@@ -145,12 +154,14 @@ export class PetController extends BaseController {
                     res,
                     error.code,
                     res.__(error.message),
+                    'Description'
                 );
             } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
                     res.__(error.message),
+                    'Description'
                 );
             } else {
                 throw error;
