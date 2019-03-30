@@ -49,5 +49,12 @@ export class PetService {
             throw error;
         }
     }
+    public searchBy = async (id: string, name: string) => {
+        try {
+            return await this. petRepository.searchBy(id, name);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 export default PetService;

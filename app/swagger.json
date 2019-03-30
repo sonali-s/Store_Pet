@@ -61,26 +61,23 @@
                 ],
                 "summary": "Post a pet details",
                 "description": "Save the new pet",
-                "produces": [
+                "consumes": [
                     "application/json",
                     "application/xml"
                 ],
                 "parameters": [
                     {
-                    "name": "pet",
-                    "in": "body",
-                    "schema": {
-                        "properties": {
-                            "pet" :{
-                                "type": "array",
-                                "items":{
-                                    "$ref":"#/definitions/Pet"
-                                }
-                            }
-                        }
-                    },
-                    "required": true
+                        "name": "pet",
+                        "in": "body",
+                        "description": "pet details to be updated",
+                        "required": true,
+                        "type":"object"
+                        
                     }
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
                 ],
                 "responses":{
                     "200": {
@@ -263,6 +260,14 @@
         }
     },
     "definitions": {
+        "Category": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+        },
         "Pet": {
             "type": "object",
             "required": [
@@ -279,10 +284,7 @@
                     "example": "doggie"
                 },
                 "category": {
-                    "name": {
-                        "type": "string",
-                        "example": "Breed"
-                    }
+                    "$ref":"#/definitions/Category"
                 },
                 "photoUrls": {
                     "type": "array",

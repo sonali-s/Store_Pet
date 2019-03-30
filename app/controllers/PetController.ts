@@ -28,7 +28,7 @@ export class PetController extends BaseController {
                 },
                 status: req.body.status
             });
-            this.petService.createPet(newPet);
+            await this.petService.createPet(newPet);
             return await this.appResponse.success(res, {newPet});
         } catch (error) {
             if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
@@ -116,6 +116,25 @@ export class PetController extends BaseController {
             } else {
                 throw error;
             }
+        }
+    }
+    public searchBy = async (req: Request, res: Response) => {
+        try {
+            const id = req.query.petId;
+            const name = req.query.petName;
+            const result = await this.petService.searchBy(id, name);
+            return this.appResponse.success(res, {result});
+        } catch (error) {
+            if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+                return this.appResponse.notFound(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
+                    res.__(error.message),
+                    'Description'
+                );
+            } else {
+                throw error;
+            }  
         }
     }
     public updatePet = async (req: Request, res: Response) => {
