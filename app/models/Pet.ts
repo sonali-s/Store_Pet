@@ -6,13 +6,13 @@ export const petSchema = new Schema({
     _id : mongoose.Schema.Types.ObjectId,
     category: {
         category_id : mongoose.Schema.Types.ObjectId,
-        name : String,
+        name : {type: String, required: true},
     },
-    name : String,
-    photoUrls: String,
-    status: String,
+    name : {type: String, required: true},
+    photoUrls: {type: String, required: true},
+    status: {type: String, required: true},
     tags: {
-        name: String,
+        name: {type: String, required: true},
         tag_id : mongoose.Schema.Types.ObjectId,
     },
 });

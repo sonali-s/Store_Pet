@@ -1,14 +1,8 @@
 import Pet from '../models/Pet';
 
 export class PetRepository {
-    public getPetById = (id: string) => {
-        return Pet.findById(id);
-    }
     public getAllPets = () => {
         return Pet.find();
-    }
-    public getPetByName = (name: string) => {
-        return Pet.find({name: {$regex: name}});
     }
     public createPet = (newPet: any) => {
         return Pet.create(newPet);
@@ -21,11 +15,11 @@ export class PetRepository {
     }
     public searchBy = (id: string, name: string) => {
         if (id === undefined)
-            return Pet.find({name: name});
+            return Pet.find({name: {$regex: name}});
         else if (name === undefined)
             return Pet.findById(id);
         else
-            return Pet.find({ _id: id, name: name } );
+            return Pet.find({ _id: id, name: {$regex: name} } );
     }
 }
 

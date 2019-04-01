@@ -1,4 +1,7 @@
 import PetRepository from '../repositories/PetRepository';
+import ServiceError from '../errors/ServiceError';
+import AppConstant from '../constants/AppConstant';
+import * as mongoose from 'mongoose';
 
 export class PetService {
     private petRepository: PetRepository;
@@ -8,31 +11,19 @@ export class PetService {
     }
 
     public getAllPets = async () => {
-        try {
-            return await this.petRepository.getAllPets();
-        } catch (error) {
-            throw error;
-        }
-    }
-    public getPetById = async (id: string) => {
-        try {
-            return await this.petRepository.getPetById(id);
-        } catch (error) {
-            throw error;
-        }
-    }
-    public getPetByName = async (name: string) => {
-        try {
-            return await this.petRepository.getPetByName(name);
-        } catch (error) {
-            throw error;
-        }
+            const result = await this.petRepository.getAllPets();
+            if (result.length < 1 ) {
+                throw new ServiceError(AppConstant.ERROR_CODES.ERR_NOT_FOUND,
+                    AppConstant.ERROR_MESSAGES.ERR_NOT_FOUND);
+            }
+            return result;
     }
     public createPet = async (newPet: any) => {
         try {
             return await this.petRepository.createPet(newPet);
         } catch (error) {
-            throw error;
+            throw new ServiceError(AppConstant.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                AppConstant.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR);
         }
     }
     public updatePet = async (id: string, updatedPet: any) => {
@@ -51,8 +42,16 @@ export class PetService {
     }
     public searchBy = async (id: string, name: string) => {
         try {
-            return await this. petRepository.searchBy(id, name);
-        } catch (error) {
+            const result = await this.petRepository.searchBy(id, name);
+            // console.log(Object.keys(result).length);
+            if(Object.keys(result).length !== 1) {
+                throw new ServiceError(AppConstant.ERROR_CODES.ERR_NOT_FOUND,
+                    AppConstant.ERROR_MESSAGES.ERR_NOT_FOUND);
+            }            
+            else {
+                return result;
+            }
+        } catch(error) {
             throw error;
         }
     }

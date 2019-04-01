@@ -4,6 +4,7 @@ import AppConstants from '../constants/AppConstant';
 import Pet from '../models/Pet';
 import PetService from '../services/PetService';
 import BaseController from './BaseController';
+import ServiceError from '../errors/ServiceError';
 
 export class PetController extends BaseController {
     private petService: PetService;
@@ -28,14 +29,14 @@ export class PetController extends BaseController {
                 },
                 status: req.body.status
             });
-            await this.petService.createPet(newPet);
-            return await this.appResponse.success(res, {newPet});
+            const response = await this.petService.createPet(newPet);
+            return await this.appResponse.success(res, {response});
         } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                return this.appResponse.unprocessableEntity(
+            if (error instanceof ServiceError) {
+                return this.appResponse.error(
                     res,
-                    error.code,
-                    res.__(error.message),
+                    AppConstants.ERROR_CODES.ERR_INTERNAL_SERVER_ERROR,
+                    AppConstants.ERROR_MESSAGES.ERR_INTERNAL_SERVER_ERROR,
                     'Description'
                 );
             } else {
@@ -48,69 +49,11 @@ export class PetController extends BaseController {
             const pets = await this.petService.getAllPets();
             return this.appResponse.success(res, {pets});
         } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                return this.appResponse.unprocessableEntity(
-                    res,
-                    error.code,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+            if (error instanceof ServiceError) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else {
-                throw error;
-            }
-        }
-    }
-    public getPetById = async (req: Request, res: Response) => {
-        try {
-            const id = req.params.petId;
-            const pet = await this.petService.getPetById(id);
-            return this.appResponse.success(res, {pet});
-        } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                return this.appResponse.unprocessableEntity(
-                    res,
-                    error.code,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                return this.appResponse.notFound(
-                    res,
-                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else {
-                throw error;
-            }
-        }
-    }
-    public getPetByName = async (req: Request, res: Response) => {
-        try {
-            let name = req.params.petName;
-            name = '^' + name;
-            const pet = await this.petService.getPetByName(name);
-            return this.appResponse.success(res, {pet});
-        } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                    return this.appResponse.unprocessableEntity(
-                        res,
-                        error.code,
-                        res.__(error.message),
-                        'Description'
-                    );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
-                return this.appResponse.notFound(
-                    res,
-                    AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
+                    AppConstants.ERROR_MESSAGES.ERR_NOT_FOUND,
                     'Description'
                 );
             } else {
@@ -123,15 +66,24 @@ export class PetController extends BaseController {
             const id = req.query.petId;
             const name = req.query.petName;
             const result = await this.petService.searchBy(id, name);
+            console.log(result);
             return this.appResponse.success(res, {result});
         } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+            if (error instanceof ServiceError) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
+                    AppConstants.ERROR_MESSAGES.ERR_NOT_FOUND,
                     'Description'
                 );
+            }
+            else if( !mongoose.Types.ObjectId.isValid(req.query.petId) ){
+                return this.appResponse.badRequest(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_BAD_REQUEST,
+                    AppConstants.ERROR_MESSAGES.ERR_BAD_REQUEST,
+                    'Description'
+                )
             } else {
                 throw error;
             }  
