@@ -18,8 +18,9 @@ export class PetRepository {
             return Pet.find({name: {$regex: name}});
         else if (name === undefined)
             return Pet.findById(id);
-        else
+        else {            
             return Pet.find({ _id: id, name: {$regex: name} } );
+        }
     }
 }
 

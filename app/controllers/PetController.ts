@@ -66,7 +66,6 @@ export class PetController extends BaseController {
             const id = req.query.petId;
             const name = req.query.petName;
             const result = await this.petService.searchBy(id, name);
-            console.log(result);
             return this.appResponse.success(res, {result});
         } catch (error) {
             if (error instanceof ServiceError) {
