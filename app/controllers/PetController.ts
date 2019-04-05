@@ -76,7 +76,7 @@ export class PetController extends BaseController {
                     'Description'
                 );
             }
-            else if( !mongoose.Types.ObjectId.isValid(req.query.petId) ){
+            else if( req.query.petId && !mongoose.Types.ObjectId.isValid(req.query.petId) ){
                 return this.appResponse.badRequest(
                     res,
                     AppConstants.ERROR_CODES.ERR_BAD_REQUEST,
@@ -94,20 +94,21 @@ export class PetController extends BaseController {
             const result = await this.petService.updatePet(id, req.body);
             return this.appResponse.success(res, {result});
         } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                return this.appResponse.unprocessableEntity(
-                    res,
-                    error.code,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+            if (error instanceof ServiceError) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
+                    AppConstants.ERROR_MESSAGES.ERR_NOT_FOUND,
                     'Description'
-                );
+                );    
+            }
+            else if( !mongoose.Types.ObjectId.isValid(req.params.petId) ){
+                return this.appResponse.badRequest(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_BAD_REQUEST,
+                    AppConstants.ERROR_MESSAGES.ERR_BAD_REQUEST,
+                    'Description'
+                )
             } else {
                 throw error;
             }
@@ -116,23 +117,24 @@ export class PetController extends BaseController {
     public deletePet = async (req: Request, res: Response) => {
         try {
             const id = req.params.petId;
-            const deletedPet = await this.petService.deletePet(id);
-            return await this.appResponse.success(res, {deletedPet});
+            await this.petService.deletePet(id);
+            return await this.appResponse.success(res, 'Data successfully deleted');
         } catch (error) {
-            if (error.code === AppConstants.ERROR_CODES.ERR_UNPROCESSABLE_ENTITY) {
-                return this.appResponse.unprocessableEntity(
-                    res,
-                    error.code,
-                    res.__(error.message),
-                    'Description'
-                );
-            } else if (error.code === AppConstants.ERROR_CODES.ERR_NOT_FOUND) {
+            if (error instanceof ServiceError) {
                 return this.appResponse.notFound(
                     res,
                     AppConstants.ERROR_CODES.ERR_NOT_FOUND,
-                    res.__(error.message),
+                    AppConstants.ERROR_MESSAGES.ERR_NOT_FOUND,
                     'Description'
                 );
+            }
+            else if( !mongoose.Types.ObjectId.isValid(req.params.petId) ){
+                return this.appResponse.badRequest(
+                    res,
+                    AppConstants.ERROR_CODES.ERR_BAD_REQUEST,
+                    AppConstants.ERROR_MESSAGES.ERR_BAD_REQUEST,
+                    'Description'
+                )
             } else {
                 throw error;
             }

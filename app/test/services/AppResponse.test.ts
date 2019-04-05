@@ -59,30 +59,6 @@ describe('AppResponse Service Test', async () => {
         sinon.assert.calledWith(res.send, envelope);
     });
 
-    it('should test unprocessableEntity response format', async () => {
-        const code = 'Code';
-        const message = 'Message';
-        const description = 'Description';
-        const statusCode = 422;
-        const envelope = {
-            status: 'FAILURE',
-            // tslint:disable-next-line:object-literal-sort-keys
-            data: {
-                error: {
-                    code,
-                    description,
-                    message,
-                },
-            },
-        };
-
-        await appResponse.unprocessableEntity(res, code, message, description);
-        sinon.assert.calledOnce(res.status);
-        sinon.assert.calledOnce(res.send);
-        sinon.assert.calledWith(res.status, statusCode);
-        sinon.assert.calledWith(res.send, envelope);
-    });
-
     it('should test badRequest response format', async () => {
         const code = 'Code';
         const message = 'Message';

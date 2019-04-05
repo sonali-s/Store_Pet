@@ -32,47 +32,69 @@ describe('Pet Repository Test', async () => {
         sinon.assert.calledOnce(stubPetModel.find);
         await expect(response).equals(pets);
     });
+    describe ('Pet repository test to return pet by ID or NAME', async () => {
+        it('should return a pet by ID or name from database', async () => {
+            const pet = [ {
+                _id : '5c7cf76b745dbe3f0888878e',
+                category : {
+                    category_id : 9876,
+                    name : 'Dino',
+                },
+                name : 'ANIMAL_NAME',
+                photoUrls : 'PHOTO',
+                status : 'AVAILABILITY',
+                tags : {
+                    name : 'TAG_NAME',
+                    tag_id: 3456,
+                },
+            }];
+            await stubPetModel.find.returns(pet);
+            const response = await new PetRepository().searchBy(pet[0]._id,pet[0].name);
+            sinon.assert.calledTwice(stubPetModel.find);
+            await expect(response).equals(pet);
+        });
+        it('should return a pet with id from database', async () => {
+            const pet = [ {
+                _id : '5c7cf76b745dbe3f0888878e',
+                category : {
+                    category_id : 9876,
+                    name : 'Dino',
+                },
+                name : 'ANIMAL_NAME',
+                photoUrls : 'PHOTO',
+                status : 'AVAILABILITY',
+                tags : {
+                    name : 'TAG_NAME',
+                    tag_id: 3456,
+                },
+            }];
+            await stubPetModel.find.returns(pet);
+            const response = await new PetRepository().searchBy(pet[0]._id, undefined);
+            sinon.assert.calledThrice(stubPetModel.find);
+            await expect(response).equals(pet);
+        });
+        it('should return a pet by name from database', async () => {
+            const pet = [ {
+                _id : '5c7cf76b745dbe3f0888878e',
+                category : {
+                    category_id : 9876,
+                    name : 'Dino',
+                },
+                name : 'ANIMAL_NAME',
+                photoUrls : 'PHOTO',
+                status : 'AVAILABILITY',
+                tags : {
+                    name : 'TAG_NAME',
+                    tag_id: 3456,
+                },
+            }];
+            await stubPetModel.find.returns(pet);
+            const response = await new PetRepository().searchBy(undefined, pet[0].name);
+            sinon.assert.callCount(stubPetModel.find,4);
+            await expect(response).equals(pet);
+        });
+    });
     
-    it('should return a pet by ID from database', async () => {
-        const pet = [ {
-            _id : 'qssdmnwt12',
-            category : {
-                category_id : 9876,
-                name : 'ANIMAL',
-            },
-            name : 'ANIMAL_NAME',
-            photoUrls : 'PHOTO',
-            status : 'AVAILABILITY',
-            tags : {
-                name : 'TAG_NAME',
-                tag_id: 3456,
-            },
-        }];
-        await stubPetModel.findById.returns(pet);
-        const response = await new PetRepository().getPetById(pet[0]._id);
-        sinon.assert.calledOnce(stubPetModel.findById);
-        await expect(response).equals(pet);
-    });
-    it('should return a pet by name from database', async () => {
-        const pet = [ {
-            _id : 'qssdmnwt12',
-            category : {
-                category_id : 9876,
-                name : 'ANIMAL',
-            },
-            name : 'ANIMAL_NAME',
-            photoUrls : 'PHOTO',
-            status : 'AVAILABILITY',
-            tags : {
-                name : 'TAG_NAME',
-                tag_id: 3456,
-            },
-        }];
-        await stubPetModel.find.returns(pet);
-        const response = await new PetRepository().getPetByName(pet[0].name);
-        sinon.assert.calledTwice(stubPetModel.find);
-        await expect(response).equals(pet);
-    });
     it('should create a pet in database', async () => {
         const pet = [ {
             _id : 'qssdmnwt12',

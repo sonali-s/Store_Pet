@@ -1,8 +1,6 @@
 import PetRepository from '../repositories/PetRepository';
 import ServiceError from '../errors/ServiceError';
 import AppConstant from '../constants/AppConstant';
-import * as mongoose from 'mongoose';
-import { ObjectId } from 'bson';
 
 export class PetService {
     private petRepository: PetRepository;
@@ -29,25 +27,35 @@ export class PetService {
     }
     public updatePet = async (id: string, updatedPet: any) => {
         try {
-            return await this.petRepository.updatePet(id, updatedPet);
+            const result = await this.petRepository.updatePet(id, updatedPet);
+            if(result === null) {
+                throw new ServiceError(AppConstant.ERROR_CODES.ERR_NOT_FOUND,
+                    AppConstant.ERROR_MESSAGES.ERR_NOT_FOUND);
+            }
+            return result;           
         } catch (error) {
             throw error;
         }
     }
     public deletePet = async (id: string) => {
         try {
-            return await this.petRepository.deletePet(id);
+            const result = await this.petRepository.deletePet(id);
+            if(result === null) {
+                throw new ServiceError(AppConstant.ERROR_CODES.ERR_NOT_FOUND,
+                    AppConstant.ERROR_MESSAGES.ERR_NOT_FOUND);
+            }
+            return result;
         } catch (error) {
             throw error;
         }
     }
     public searchBy = async (id: string, name: string) => {
         try {
-            const result = await this.petRepository.searchBy(id, name);       
-            if(result === null || Object.keys(result).length !==5) {
+            const result = await this.petRepository.searchBy(id, name);
+            if (result === null || Object.keys(result).length === 0) {
                 throw new ServiceError(AppConstant.ERROR_CODES.ERR_NOT_FOUND,
                     AppConstant.ERROR_MESSAGES.ERR_NOT_FOUND);
-            }            
+            }           
             return result;
         } catch(error) {
             throw error;

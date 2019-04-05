@@ -27,19 +27,6 @@ export class AppResponse {
         });
     }
 
-    public unprocessableEntity = (res: Response, code: string, message: string, description: string) => {
-        res.status(this.UNPROCESSABLE_ENTITY).send({
-            status: 'FAILURE',
-            data: {
-                error: {
-                    code,
-                    description,
-                    message,
-                },
-            },
-        });
-    }
-
     public badRequest = (res: Response, code: string, message: string, description: string) => {
         res.status(this.BAD_REQUEST).send({
             status: 'FAILURE',
